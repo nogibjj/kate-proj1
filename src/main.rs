@@ -1,8 +1,12 @@
-use plotters::prelude::*;
 use clap::Parser;
+use plotters::prelude::*;
 
 #[derive(Parser)]
-#[clap(version = "1.0", author = "Kate Feng", about = "A data visualization tool")]
+#[clap(
+    version = "1.0",
+    author = "Kate Feng",
+    about = "A data visualization tool"
+)]
 struct Cli {
     #[clap(subcommand)]
     command: Option<Commands>,
@@ -27,7 +31,6 @@ enum Commands {
     },
 }
 
-
 fn main() {
     let xy = datavisualizer::parsestringtonumber();
     let args = Cli::parse();
@@ -41,30 +44,31 @@ fn main() {
             y_max,
         }) => {
             drawline(xy, &filename, &caption, x_min, x_max, y_min, y_max);
-         
         }
         None => println!("No subcommand was used"),
     }
-    
 }
 
+fn drawline(
+    xy: Vec<(i32, i32)>,
+    file_name: &str,
+    caption: &str,
+    x_min: i32,
+    x_max: i32,
+    y_min: i32,
+    y_max: i32,
+) {
+    let root_area = BitMapBackend::new(file_name, (600, 400)).into_drawing_area();
+    root_area.fill(&WHITE).unwrap();
 
+    let mut ctx = ChartBuilder::on(&root_area)
+        .set_label_area_size(LabelAreaPosition::Left, 40)
+        .set_label_area_size(LabelAreaPosition::Bottom, 40)
+        .caption(caption, ("sans-serif", 40))
+        .build_cartesian_2d(x_min..x_max, y_min..y_max)
+        .unwrap();
 
-fn drawline(xy: Vec<(i32, i32)>, file_name: &str, caption: &str, x_min: i32, x_max: i32, y_min: i32, y_max: i32) {
-  let root_area = BitMapBackend::new(file_name, (600, 400))
-    .into_drawing_area();
-  root_area.fill(&WHITE).unwrap();
+    ctx.configure_mesh().draw().unwrap();
 
-  let mut ctx = ChartBuilder::on(&root_area)
-    .set_label_area_size(LabelAreaPosition::Left, 40)
-    .set_label_area_size(LabelAreaPosition::Bottom, 40)
-    .caption(caption, ("sans-serif", 40))
-    .build_cartesian_2d(x_min..x_max, y_min..y_max)
-    .unwrap();
-
-  ctx.configure_mesh().draw().unwrap();
-
-  ctx.draw_series(
-    LineSeries::new(xy, RED)
-  ).unwrap();
+    ctx.draw_series(LineSeries::new(xy, RED)).unwrap();
 }

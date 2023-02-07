@@ -1,10 +1,11 @@
 use std::{fs::File, io::Read};
 
-pub fn parsestringtonumber() -> Vec<(i32, i32)>{
+pub fn parsestringtonumber() -> Vec<(i32, i32)> {
     let mut file = File::open("data.txt").expect("Unable to open file");
     // i want to read the numbers in data.txt and store them in a vector
     let mut contents = String::new();
-    file.read_to_string(&mut contents).expect("Unable to read file");
+    file.read_to_string(&mut contents)
+        .expect("Unable to read file");
     let mut x = vec![];
     let mut y = vec![];
     let mut lines = contents.lines();
@@ -20,7 +21,6 @@ pub fn parsestringtonumber() -> Vec<(i32, i32)>{
     }
     combine_vectors(x, y)
 }
-
 
 fn combine_vectors(a: Vec<i32>, b: Vec<i32>) -> Vec<(i32, i32)> {
     let mut result = vec![];

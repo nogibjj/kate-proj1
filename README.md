@@ -1,16 +1,43 @@
 # Project 1 - Data Visualizer
 [![Clippy](https://github.com/nogibjj/kate-proj1/actions/workflows/lint.yml/badge.svg)](https://github.com/nogibjj/kate-proj1/actions/workflows/lint.yml)
+
 My project 1 is a Rust command line tool, which is a data visualizer to help users draw plots. It's based on the crate called Plotters.
 
+## Example
+Below is a sample output of the command line tool. You can reproduce it by clonning this repo and running the command `cargo run -- plot --filename "demo.png" --caption "sample size vs frequency" --xlabel "sample size" --ylabel "frequency of sample size"`. The data values are set in [data.txt](data.txt).
+
+
+![My Image](demo.png)
+
 ## How to use
-Currently this tool supports configuration of setting the filename to save the plot, the caption of the plot, and x/y min/max values.
-For example, run this `cargo run -- plot --filename demo.png --caption "demo plot" --x-min 0 --x-max 100 --y-min 0 --y-max 80` to try it out!
-I am still working on to parse x and y values to the command line, so currently the x and y values are hardcoded. It's basically drawing a line from (0,0) to (100,100). I am thinking of using a file to store the x and y values and import the file. 
+Currently, data visualizer supports configuration settings of the following parameters: the output plot filename, the caption of the plot, the x and y label of the plot, the x and y values to be plotted, and min/max values of x and y axes.
+
+To configure these parameters,
+the command line tool requires following arguments:  
+* `--filename <FILENAME>`
+* `--caption <CAPTION>`
+* `--xlabel <XLABEL>`
+* `--ylabel <YLABEL>`
+
+As mentioned above, a legitimate example of command line would be `cargo run -- plot --filename "demo.png" --caption "sample size vs frequency" --xlabel "sample size" --ylabel "frequency of sample size"`.
+
+Besides these, the command line tool also takes in a file with the filename data.txt. It will go to data.txt and read the following parameters:
+* The first line should be the x values, seperated by blanks
+* The second line should be the y values, seperated by blanks
+* The third line should be the minimum value of x axis
+* The fourth line should be the maximum value of x axis
+* The fifth line should be the minimum value of y axis
+* The sixth line should be the maximum value of y axis
+
+A legitimate example of data.txt would be [data.txt](data.txt). Make sure to not mix these lines!
+
+## Why Data Visualizer
+The reason I want to build this data visualizer command line tool is that I noticed it is not easy to do plots in Rust. There is no default function call to make plots, and the plotting crates are complicated to use. I build my project on top of the most popular plotting crate, Plotters. Unlike how easily we can use matplotlib in python, to plot a very simple graph in Plotters requires many lines of codes and complex configuration settings. Using this command line tool can simplify things and fulfill the basic plotting functionalities for users.
 
 ## Future Work
-* Finish parsing x and y values to the command line
+* Docker
 * Deploy on AWS
-* Add more fields for users to customize
+* Add more plot styles and fields for users to customize
 
 ## References
 * https://plotters-rs.github.io/book/basic/basic_data_plotting.html

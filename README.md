@@ -1,4 +1,5 @@
 # Project 1 - Data Visualizer
+[![Clippy](https://github.com/nogibjj/kate-proj1/actions/workflows/lint.yml/badge.svg)](https://github.com/nogibjj/kate-proj1/actions/workflows/lint.yml)
 My project 1 is a Rust command line tool, which is a data visualizer to help users draw plots. It's based on the crate called Plotters.
 
 ## How to use

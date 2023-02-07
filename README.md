@@ -1,5 +1,7 @@
 # Project 1 - Data Visualizer
 [![Clippy](https://github.com/nogibjj/kate-proj1/actions/workflows/lint.yml/badge.svg)](https://github.com/nogibjj/kate-proj1/actions/workflows/lint.yml)
+[![Rustfmt](https://github.com/nogibjj/kate-proj1/actions/workflows/rustfmt.yml/badge.svg)](https://github.com/nogibjj/kate-proj1/actions/workflows/rustfmt.yml)
+[![Build binary release](https://github.com/nogibjj/kate-proj1/actions/workflows/release.yml/badge.svg)](https://github.com/nogibjj/kate-proj1/actions/workflows/release.yml)
 
 My project 1 is a Rust command line tool, which is a data visualizer to help users draw plots. It's based on the crate called Plotters.
 

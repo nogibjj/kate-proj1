@@ -29,9 +29,7 @@ enum Commands {
 
 
 fn main() {
-    let x = vec![0,100];
-    let y = vec![0,100];
-
+    let xy = datavisualizer::parsestringtonumber();
     let args = Cli::parse();
     match args.command {
         Some(Commands::Plot {
@@ -42,23 +40,17 @@ fn main() {
             y_min,
             y_max,
         }) => {
-            drawline(x, y, &filename, &caption, x_min, x_max, y_min, y_max);
+            drawline(xy, &filename, &caption, x_min, x_max, y_min, y_max);
          
         }
         None => println!("No subcommand was used"),
     }
-
+    
 }
 
-fn combine_vectors(a: Vec<i32>, b: Vec<i32>) -> Vec<(i32, i32)> {
-    let mut result = vec![];
-    for (a_element, b_element) in a.iter().zip(b.iter()) {
-        result.push((*a_element, *b_element));
-    }
-    result
-}
 
-fn drawline(x: Vec<i32>, y: Vec<i32>, file_name: &str, caption: &str, x_min: i32, x_max: i32, y_min: i32, y_max: i32) {
+
+fn drawline(xy: Vec<(i32, i32)>, file_name: &str, caption: &str, x_min: i32, x_max: i32, y_min: i32, y_max: i32) {
   let root_area = BitMapBackend::new(file_name, (600, 400))
     .into_drawing_area();
   root_area.fill(&WHITE).unwrap();
@@ -73,6 +65,6 @@ fn drawline(x: Vec<i32>, y: Vec<i32>, file_name: &str, caption: &str, x_min: i32
   ctx.configure_mesh().draw().unwrap();
 
   ctx.draw_series(
-    LineSeries::new(combine_vectors(x,y), &RED)
+    LineSeries::new(xy, RED)
   ).unwrap();
 }

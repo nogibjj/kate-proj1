@@ -17,6 +17,13 @@ test:
 
 run:
 	cargo run
+	
+build-container:
+# Build the container
+	docker build -t proj1 .
+
+sample:
+	 docker run --rm -it proj1 plot --filename "demo.png" --caption "sample size vs frequency" --xlabel "sample size" --ylabel "frequency of sample size"
 
 release:
 	cargo build --release

@@ -24,12 +24,12 @@ enum Commands {
         xlabel: String,
         #[clap(short, long)]
         ylabel: String,
+        #[clap(short, long)]
+        inputfile: String,
     },
 }
 
 fn main() {
-    let xy = datavisualizer::read_x_y();
-    let minmax = datavisualizer::read_min_max();
     let args = Cli::parse();
     match args.command {
         Some(Commands::Plot {
@@ -37,7 +37,10 @@ fn main() {
             caption,
             xlabel,
             ylabel,
+            inputfile,
         }) => {
+            let xy = datavisualizer::read_x_y(&inputfile);
+            let minmax = datavisualizer::read_min_max(&inputfile);
             drawline(xy, &filename, &caption, minmax, &xlabel, &ylabel);
         }
         None => println!("No subcommand was used"),

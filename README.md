@@ -36,10 +36,8 @@ A legitimate example of data.txt would be [data.txt](data.txt). Make sure to not
 ## Why Data Visualizer
 The reason I want to build this data visualizer command line tool is that I noticed it is not easy to do plots in Rust. There is no default function call to make plots, and the plotting crates are complicated to use. I build my project on top of the most popular plotting crate, Plotters. Unlike how easily we can use matplotlib in python, to plot a very simple graph in Plotters requires many lines of codes and complex configuration settings. Using this command line tool can simplify things and fulfill the basic plotting functionalities for users.
 
-## Future Work
-* Docker
-* Deploy on AWS
-* Add more plot styles and fields for users to customize
+## Deploy
+I have tried to make a docker image for this project, and deploy it on ECR. However, it seems that docker images are not quite compatible with Rust projects taking input files. I have spent much time trying to fix the file path issue so the docker image can find the input file, but the docker still not work as expected. The conclusion I reach is that it's very hard to make docker find where the input file for a Rust project should be, and it not may be a good idea to dockerize this project. The current flawed ECR docker image can be obtained by `docker pull public.ecr.aws/r9c5u1t7/proj1`.
 
 ## References
 * https://plotters-rs.github.io/book/basic/basic_data_plotting.html
